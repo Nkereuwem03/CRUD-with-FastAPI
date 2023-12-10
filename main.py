@@ -46,7 +46,7 @@ app.include_router(blog.router)
 app.include_router(user.router)
 app.include_router(vote.router)
 
-# models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine)
 
 @app.get('/', tags=['Root'])
 async def root():
