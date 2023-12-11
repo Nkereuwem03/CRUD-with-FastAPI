@@ -17,7 +17,7 @@ def vote(request: AddVote, db: Session = Depends(get_db), current_user = Depends
     query_vote = db.query(Vote).filter(and_(Vote.user_id == current_user.id, Vote.blog_id == request.blog_id)).first()
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'post with id={request.blog_id} does not exit')
-    if request.dir > 1 or request.dir < 0:
+    if request.dir != 1 or request.dir != 0:
         raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, 
                             detail='value for "dir" must either be 0 or 1') 
     if request.dir == 1:
