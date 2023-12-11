@@ -57,7 +57,7 @@ async def update_user(username: str, request: UpdateUser, db: Session = Depends(
 
 @router.delete('/{username}')
 async def delete_user(username: str, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.username == username)
+    user = db.query(User).filter(User.username == username).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'User with username({username}) not found')

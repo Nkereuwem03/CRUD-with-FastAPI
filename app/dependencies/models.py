@@ -22,12 +22,12 @@ class Blog(Base):
     published = Column(Boolean, nullable=False, server_default='TRUE')
     owner_id = Column(Integer, ForeignKey("users.id", ondelete='CASCADE'))
     owner = relationship('User', back_populates='posts')
-    vote = relationship('Vote', back_populates='vote')
+    # vote = relationship('Vote', back_populates='blog')
     
 class Vote(Base):
     __tablename__ = 'vote'
     user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), primary_key=True)
     blog_id = Column(Integer, ForeignKey('blog.id', ondelete='CASCADE'), primary_key=True)
-    blog = relationship('Vote', back_populates='blog')
+    # blog = relationship('Blog', back_populates='vote')
 
     

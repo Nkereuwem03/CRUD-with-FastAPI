@@ -6,6 +6,8 @@ from app.dependencies.database import get_db
 from app.dependencies.models import Blog, Vote
 from app.dependencies.schemas import CreatePost, PostResponse, UpdatePost, CreateUser, PostOut
 from .authentication import get_current_user
+import jsonify
+import json
 
 router = APIRouter(
     tags=['Blog'],
@@ -33,8 +35,8 @@ async def get_all_posts(db: Session = Depends(get_db), limit: int = 10, offset: 
     title = db.query(Blog).filter(Blog.title.contains(search)).offset(offset).limit(limit).all()
     content = db.query(Blog).filter(Blog.content.contains(search)).offset(offset).limit(limit).all()
     
-    result = db.query(Blog, func.count(Vote.blog_id).label("votes")).join(
-        Vote, Vote.blog_id == Blog.id, isouter=True).group_by(Blog.id).all()    
+    # result = db.query(Blog, func.count(Vote.blog_id).label("votes")).join(
+    #     Vote, Vote.blog_id == Blog.id, isouter=True).group_by(Blog.id).all()    
     
     # return result
     return title and content
