@@ -53,7 +53,7 @@ class UpdatePost(BaseConfig):
     
 class AddVote(BaseConfig):
     blog_id: int
-    dir: conint(le=1)
+    dir: int
                   
 class Token(BaseConfig):
     access_token: str

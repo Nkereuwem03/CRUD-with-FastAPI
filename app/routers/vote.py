@@ -5,6 +5,7 @@ from sqlalchemy import and_
 from app.dependencies.database import get_db
 from app.dependencies.schemas import AddVote
 from app.dependencies.models import Vote, Blog
+from pydantic.types import conint
 
 router = APIRouter(
     prefix='/vote',
@@ -15,11 +16,11 @@ router = APIRouter(
 def vote(request: AddVote, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
     post = db.query(Blog).filter(Blog.id == request.blog_id).first()
     query_vote = db.query(Vote).filter(and_(Vote.user_id == current_user.id, Vote.blog_id == request.blog_id)).first()
-    if not post:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'post with id={request.blog_id} does not exit')
     if request.dir != 1 or request.dir != 0:
         raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, 
-                            detail='value for "dir" must either be 0 or 1') 
+                            detail="value for 'dir' must either be 0 or 1") 
+    if not post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'post with id={request.blog_id} does not exit')
     if request.dir == 1:
         if query_vote:
             # no_of_votes = db.query(Vote).filter(Vote.blog_id == request.blog_id).count()
