@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, conint
 from datetime import datetime
-from typing import List, Union
+from typing import List, Union, Annotated
 from pydantic.types import conint
 
 class BaseConfig(BaseModel):
@@ -53,7 +53,7 @@ class UpdatePost(BaseConfig):
     
 class AddVote(BaseConfig):
     blog_id: int
-    dir: int
+    dir: int 
                   
 class Token(BaseConfig):
     access_token: str

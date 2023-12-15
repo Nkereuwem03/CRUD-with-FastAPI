@@ -5,7 +5,6 @@ from app.dependencies.database import get_db
 from app.dependencies.models import User
 from app.dependencies.schemas import CreateUser, UserResponse, UpdateUser
 from app.routers.authentication import get_current_user, pwd_context
-from pydantic import EmailStr
 
 router = APIRouter(
     tags=['User'],

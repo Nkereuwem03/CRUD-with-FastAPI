@@ -1,13 +1,11 @@
-from typing import List, Optional, Union
+from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from app.dependencies.database import get_db
 from app.dependencies.models import Blog, Vote
-from app.dependencies.schemas import CreatePost, PostResponse, UpdatePost, CreateUser, PostOut
+from app.dependencies.schemas import CreatePost, PostResponse, UpdatePost, CreateUser
 from .authentication import get_current_user
-import jsonify
-import json
 
 router = APIRouter(
     tags=['Blog'],
